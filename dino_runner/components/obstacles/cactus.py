@@ -1,5 +1,4 @@
 import random
-
 from dino_runner.components.obstacles.obstacle import Obstacle
 
 
@@ -9,5 +8,5 @@ class Cactus(Obstacle):
         super().__init__(image, self.type)
         if self.type < 3:
             self.rect.y = 325
-        elif self.type < 6:
+        else:
             self.rect.y = 300
