@@ -19,6 +19,7 @@ class Game:
         self.running = False
         self.game_speed = 20
         self.score = 0
+        self.high_score = 0
         self.death_count = 0
         self.x_pos_bg = 0
         self.y_pos_bg = 380
@@ -56,8 +57,10 @@ class Game:
 
     def update_score(self):
         self.score += 1
+        if self.score > self.high_score:
+            self.high_score = self.score
         if self.score % 100 == 0:
-            self.game_speed += 5
+            self.game_speed += 4
 
     def draw(self):
         self.clock.tick(FPS)
@@ -86,7 +89,7 @@ class Game:
         self.screen.blit(text, text_rect)
 
     def draw_score(self):
-        self.set_print_text(22, f"Score: {self.score}", 1000, 50)
+        self.set_print_text(22, f"High score: {self.high_score} | Score: {self.score}", 900, 50)
 
     def show_menu(self):
         self.screen.fill((255, 255, 255))
@@ -97,9 +100,9 @@ class Game:
             self.set_print_text(22, "Press any key to start", half_screen_width, half_screen_height)
         else:  # Tela de restart
             self.screen.blit(ICON, (half_screen_width - 20, half_screen_height - 140))
-            self.set_print_text(22, f"Score: {self.score}", 570, half_screen_height - 20)
-            self.set_print_text(22, f"Deaths: {self.death_count}", 570, half_screen_height)
-            self.set_print_text(22, "Press any key to restart", half_screen_width + 10, half_screen_height + 60)
+            self.set_print_text(22, f"High score: {self.high_score} | Score: {self.score}", 570, half_screen_height + 40)
+            self.set_print_text(22, f"Deaths: {self.death_count}", 570, half_screen_height + 60)
+            self.set_print_text(22, "Press any key to restart", half_screen_width + 20, half_screen_height - 20)
 
         pygame.display.update()
         self.handle_events_on_menu()
