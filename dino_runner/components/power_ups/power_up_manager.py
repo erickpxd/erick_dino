@@ -7,22 +7,23 @@ class PowerUpManager:
     def __init__(self):
         self.power_ups = []
         self.when_appears = 0
+        self.choise = 1
 
     def generate_power_up(self, score):
         if len(self.power_ups) == 0 and self.when_appears == score:
-            self.when_appears += random.randint(200, 300)
+            self.when_appears += random.randint(300, 400)
             self.power_ups.append(Shield())
 
     def update(self, game):
         self.generate_power_up(game.score)
         for power_up in self.power_ups:
             power_up.update(game.game_speed, self.power_ups)
-            if game.player.dino_rect.colliderect(power_up.rect):
+            if game.player.dino_rect.colliderect(power_up.rect) and self.choise == 1:
                 power_up.start_time = pygame.time.get_ticks()
                 game.player.shield = True
                 game.player.has_power_up = True
                 game.player.type = power_up.type
-                game.player.power_up_time = power_up.start_time + (power_up.duration * 1000)
+                game.player.power_up_time = power_up.start_time + (power_up.duration * 800)
                 self.power_ups.remove(power_up)
 
     def draw(self, screen):
@@ -31,4 +32,4 @@ class PowerUpManager:
 
     def reset_power_ups(self):
         self.power_ups = []
-        self.when_appears = random.randint(200, 300)
+        self.choise = 1

@@ -6,29 +6,37 @@ from dino_runner.utils.constants import (
     RUNNING_SHIELD,
     JUMPING_SHIELD,
     DUCKING_SHIELD,
+    RUNNING_HAT,
+    JUMPING_HAT,
+    DUCKING_HAT,
     DEFAULT_TYPE,
     SHIELD_TYPE,
+    HAT_TYPE,
+
 )
 from pygame.sprite import Sprite
+pygame.init()
 
 
 X_POS = 80
-Y_POS = 310
-Y_DUCK_POS = Y_POS + 30
+Y_POS = 485
 JUMP_VEL = 8.5
 
 
 DUCK_IMG = {
     DEFAULT_TYPE: DUCKING,
     SHIELD_TYPE: DUCKING_SHIELD,
+    HAT_TYPE: DUCKING_HAT 
 }
 JUMP_IMG = {
     DEFAULT_TYPE: JUMPING,
     SHIELD_TYPE: JUMPING_SHIELD,
+    HAT_TYPE: JUMPING_HAT
 }
 RUN_IMG = {
     DEFAULT_TYPE: RUNNING,
     SHIELD_TYPE: RUNNING_SHIELD,
+    HAT_TYPE: RUNNING_HAT
 }
 
 
@@ -50,6 +58,7 @@ class Dinosaur(Sprite):
         self.has_power_up = False
         self.shield = False
         self.show_test = False
+        self.hat = False
         self.power_up_time = 0
 
     def update(self, user_input):
@@ -78,13 +87,16 @@ class Dinosaur(Sprite):
 
     def run(self):
         self.image = RUN_IMG[self.type][self.step_index // 5]
+        self.image = pygame.transform.scale(self.image,(84,84))
         self.dino_rect = self.image.get_rect()
         self.dino_rect.x = X_POS
         self.dino_rect.y = Y_POS
         self.step_index += 1
 
     def jump(self):
+        self.dino_rect.x = X_POS
         self.image = JUMP_IMG[self.type]
+        self.image = pygame.transform.scale(self.image,(84,84))
         if self.dino_jump:
             self.dino_rect.y -= self.jump_vel * 4
             self.jump_vel -= 0.8
@@ -96,9 +108,10 @@ class Dinosaur(Sprite):
 
     def duck(self):
         self.image = DUCK_IMG[self.type][self.step_index // 5]
+        self.image = pygame.transform.scale(self.image,(60,40))
         self.dino_rect = self.image.get_rect()
-        self.dino_rect.x = X_POS
-        self.dino_rect.y = Y_DUCK_POS
+        self.dino_rect.x = X_POS +13
+        self.dino_rect.y = Y_POS + 44
         self.step_index += 1
         self.dino_duck = False
 

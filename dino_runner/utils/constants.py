@@ -1,6 +1,6 @@
 import pygame
 import os
-
+pygame.init()
 # Global Constants
 TITLE = "Chrome Dino Runner"
 SCREEN_HEIGHT = 600
@@ -9,74 +9,100 @@ FPS = 30
 IMG_DIR = os.path.join(os.path.dirname(__file__), "..", "assets")
 
 # Assets Constants
-ICON = pygame.image.load(os.path.join(IMG_DIR, "DinoWallpaper.png"))
+ICON = pygame.image.load(os.path.join(IMG_DIR, "imagens/START.png"))
 
 # Dino
-DINO_START = pygame.image.load(os.path.join(IMG_DIR, "Dino/DinoStart.png"))
-DINO_DEAD = pygame.image.load(os.path.join(IMG_DIR, "Dino/DinoDead.png"))
+DINO_START = pygame.image.load(os.path.join(IMG_DIR, "imagens/START.png"))
+DINO_DEAD = pygame.image.load(os.path.join(IMG_DIR, "imagens/DIE.png"))
 
 # Run
 RUNNING = [
-    pygame.image.load(os.path.join(IMG_DIR, "Dino/Run/DinoRun1.png")),
-    pygame.image.load(os.path.join(IMG_DIR, "Dino/Run/DinoRun2.png")),
+    pygame.image.load(os.path.join(IMG_DIR, "imagens/RUN1.png")),
+    pygame.image.load(os.path.join(IMG_DIR, "imagens/RUN2.png")),
 ]
 RUNNING_SHIELD = [
-    pygame.image.load(os.path.join(IMG_DIR, "Dino/Run/DinoRunShield1.png")),
-    pygame.image.load(os.path.join(IMG_DIR, "Dino/Run/DinoRunShield2.png")),
+    pygame.image.load(os.path.join(IMG_DIR, "imagens/RUN1E.png")),
+    pygame.image.load(os.path.join(IMG_DIR, "imagens/RUN2E.png")),
 ]
-RUNNING_HAMMER = [
-    pygame.image.load(os.path.join(IMG_DIR, "Dino/Run/DinoRunHammer1.png")),
-    pygame.image.load(os.path.join(IMG_DIR, "Dino/Run/DinoRunHammer2.png")),
+RUNNING_HAT = [
+    pygame.image.load(os.path.join(IMG_DIR, "imagens/RUN1C.png")),
+    pygame.image.load(os.path.join(IMG_DIR, "imagens/RUN2C.png"))
 ]
 
 # Duck
 DUCKING = [
-    pygame.image.load(os.path.join(IMG_DIR, "Dino/Duck/DinoDuck1.png")),
-    pygame.image.load(os.path.join(IMG_DIR, "Dino/Duck/DinoDuck2.png")),
+    pygame.image.load(os.path.join(IMG_DIR, "imagens/DUCK1.png")),
+    pygame.image.load(os.path.join(IMG_DIR, "imagens/DUCK2.png")),
 ]
 DUCKING_SHIELD = [
-    pygame.image.load(os.path.join(IMG_DIR, "Dino/Duck/DinoDuckShield1.png")),
-    pygame.image.load(os.path.join(IMG_DIR, "Dino/Duck/DinoDuckShield2.png")),
+    pygame.image.load(os.path.join(IMG_DIR, "imagens/DUCK1E.png")),
+    pygame.image.load(os.path.join(IMG_DIR, "imagens/DUCK2E.png")),
 ]
-DUCKING_HAMMER = [
-    pygame.image.load(os.path.join(IMG_DIR, "Dino/Duck/DinoDuckHammer1.png")),
-    pygame.image.load(os.path.join(IMG_DIR, "Dino/Duck/DinoDuckHammer2.png")),
+DUCKING_HAT = [
+    pygame.image.load(os.path.join(IMG_DIR, "imagens/DUCK1C.png")),
+    pygame.image.load(os.path.join(IMG_DIR, "imagens/DUCK2C.png")),
 ]
 
 # Jump
-JUMPING = pygame.image.load(os.path.join(IMG_DIR, "Dino/Jump/DinoJump.png"))
+JUMPING = pygame.image.load(os.path.join(IMG_DIR, "imagens/JUMP.png"))
 JUMPING_SHIELD = pygame.image.load(
-    os.path.join(IMG_DIR, "Dino/Jump/DinoJumpShield.png")
+    os.path.join(IMG_DIR, "imagens/JUMPECO.png")
 )
-JUMPING_HAMMER = pygame.image.load(
-    os.path.join(IMG_DIR, "Dino/Jump/DinoJumpHammer.png")
+JUMPING_HAT = pygame.image.load(os.path.join(IMG_DIR, "imagens/JUMPBIT.png")
 )
 
 # Obstacles
-SMALL_CACTUS = [
-    pygame.image.load(os.path.join(IMG_DIR, "Cactus/SmallCactus1.png")),
-    pygame.image.load(os.path.join(IMG_DIR, "Cactus/SmallCactus2.png")),
-    pygame.image.load(os.path.join(IMG_DIR, "Cactus/SmallCactus3.png")),
-]
-LARGE_CACTUS = [
-    pygame.image.load(os.path.join(IMG_DIR, "Cactus/LargeCactus1.png")),
-    pygame.image.load(os.path.join(IMG_DIR, "Cactus/LargeCactus2.png")),
-    pygame.image.load(os.path.join(IMG_DIR, "Cactus/LargeCactus3.png")),
-]
-BIRD = [
-    pygame.image.load(os.path.join(IMG_DIR, "Bird/Bird1.png")),
-    pygame.image.load(os.path.join(IMG_DIR, "Bird/Bird2.png")),
-]
+LIXOS = []
+# Carrega as imagens de lixo
+lixos1 = pygame.image.load(os.path.join(IMG_DIR, "imagens/LIXO1.png"))
+lixos2 = pygame.image.load(os.path.join(IMG_DIR, "imagens/LIXO2.png"))
+lixos3 = pygame.image.load(os.path.join(IMG_DIR, "imagens/LIXO3.png"))
+lixos4 = pygame.image.load(os.path.join(IMG_DIR, "imagens/Lixo4.png"))
+lixos5 = pygame.image.load(os.path.join(IMG_DIR, "imagens/Lixo5.png"))
 
-# Doodads
-CLOUD = pygame.image.load(os.path.join(IMG_DIR, "Other/Cloud.png"))
+# Redimensiona as imagens para 120 por 120 pixels
+lixos1 = pygame.transform.scale(lixos1, (120, 110))
+lixos2 = pygame.transform.scale(lixos2, (120, 110))
+lixos3 = pygame.transform.scale(lixos3, (120, 110))
+lixos4 = pygame.transform.scale(lixos4, (120, 110))
+lixos5 = pygame.transform.scale(lixos5, (120, 110))
+
+# Adiciona as imagens à lista `LIXOS`
+LIXOS.append(lixos1)
+LIXOS.append(lixos2)
+LIXOS.append(lixos3)
+LIXOS.append(lixos4)
+LIXOS.append(lixos5)
+
+#BIRD
+bird1 = pygame.image.load(os.path.join(IMG_DIR, "imagens/Bird1.png"))
+bird2 = pygame.image.load(os.path.join(IMG_DIR, "imagens/Bird2.png"))
+
+bird1 = pygame.transform.scale(bird1, (80, 80))
+bird2 = pygame.transform.scale(bird2, (80, 80))
+
+BIRD = []
+BIRD.append(bird1)
+BIRD.append(bird2)
+
+
 
 # Power ups
-SHIELD = pygame.image.load(os.path.join(IMG_DIR, "Other/Shield.png"))
-HAMMER = pygame.image.load(os.path.join(IMG_DIR, "Other/Hammer.png"))
+escudo = pygame.image.load(os.path.join(IMG_DIR, "imagens/eco.png"))
+SHIELD = pygame.transform.scale(escudo, (80, 80))
+HAT = pygame.image.load(os.path.join(IMG_DIR, "imagens/BIT.png"))
 
-BG = pygame.image.load(os.path.join(IMG_DIR, "Other/Track.png"))
-HEART = pygame.image.load(os.path.join(IMG_DIR, "Other/SmallHeart.png"))
+BG = pygame.image.load(os.path.join(IMG_DIR, "imagens/Track.png"))
+BIG_BG = pygame.image.load(os.path.join(IMG_DIR, "imagens/bg1.png"))
+BIG_BG = pygame.transform.scale(BIG_BG, (SCREEN_WIDTH,SCREEN_HEIGHT))
+PARALAX1 = pygame.image.load(os.path.join(IMG_DIR, "imagens/Paralax_1.png"))
+PARALAX1 = pygame.transform.scale(PARALAX1, (SCREEN_WIDTH,SCREEN_HEIGHT))
+PARALAX2 = pygame.image.load(os.path.join(IMG_DIR, "imagens/paralax_final.png"))
+PARALAX2 = pygame.transform.scale(PARALAX2, (SCREEN_WIDTH,SCREEN_HEIGHT))
+
+pygame.mixer.music.set_volume(0.15)
+MP3 = pygame.mixer.music.load(os.path.join(IMG_DIR,"Other/praieira.mp3"))
 
 DEFAULT_TYPE = "default"
 SHIELD_TYPE = "shield"
+HAT_TYPE = "hat"

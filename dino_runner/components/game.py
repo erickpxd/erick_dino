@@ -1,11 +1,11 @@
 import pygame
 
-from dino_runner.utils.constants import BG, ICON, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS, DEFAULT_TYPE
+from dino_runner.utils.constants import BG, ICON, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS, DEFAULT_TYPE, BIG_BG, MP3, PARALAX1,PARALAX2
 from dino_runner.components.dinosaur import Dinosaur
 from dino_runner.components.obstacles.obstacle_manager import ObstacleManager
 from dino_runner.components.power_ups.power_up_manager import PowerUpManager
 from dino_runner.utils.text_utils import set_print_text
-
+pygame.init()
 class Game:
     def __init__(self):
         pygame.init()
@@ -15,21 +15,25 @@ class Game:
         self.clock = pygame.time.Clock()
         self.playing = False
         self.running = False
-        self.game_speed = 20
+        self.game_speed = 15
         self.score = 0
         self.high_score = 0
         self.death_count = 0
         self.x_pos_bg = 0
-        self.y_pos_bg = 380
+        self.y_pos_bg = 555
+        self.x_pos_paralax = 0
+        self.y_pos_paralax = 0
         self.player = Dinosaur()
         self.obstacle_manager = ObstacleManager()
         self.power_up_manager = PowerUpManager()
+        self.big_bg = BIG_BG
 
     def execute(self):
         self.running = True
         while self.running:
             if not self.playing:
                 self.show_menu()
+                pygame.mixer.music.play(-1)
         pygame.display.quit()
         pygame.quit()
 
@@ -40,6 +44,7 @@ class Game:
         self.game_speed = 20
         self.obstacle_manager.reset_obstacles()
         self.power_up_manager.reset_power_ups()
+
         while self.playing:
             self.events()
             self.update()
@@ -63,11 +68,12 @@ class Game:
         if self.score > self.high_score:
             self.high_score = self.score
         if self.score % 100 == 0:
-            self.game_speed += 4
+            self.game_speed += 2
 
     def draw(self):
         self.clock.tick(FPS)
-        self.screen.fill((255, 255, 255))  # '#FFFFFF'
+        self.screen.blit(self.big_bg,(0,0))  # '#FFFFFF'
+        self.draw_paralax()
         self.draw_background()
         self.player.draw(self.screen)
         self.obstacle_manager.draw(self.screen)
@@ -86,8 +92,18 @@ class Game:
             self.x_pos_bg = 0
         self.x_pos_bg -= self.game_speed
 
+    def draw_paralax(self):
+        image_width = PARALAX2.get_width()
+        self.screen.blit(PARALAX2, (self.x_pos_paralax, self.y_pos_paralax))
+        self.screen.blit(PARALAX2, (image_width + self.x_pos_paralax, self.y_pos_paralax))
+        if self.x_pos_paralax <= -image_width:
+            self.screen.blit(PARALAX2, (image_width + self.x_pos_paralax, self.y_pos_paralax))
+            self.x_pos_paralax = 0
+        x = 0.1
+        self.x_pos_paralax -= (2 - x)
+
     def draw_score(self):
-            set_print_text(f"High score: {self.high_score - 1} | Score: {self.score}",self.screen,pos_x_center=900,pos_y_center=50)
+            set_print_text(f"High score: {self.high_score - 1} | Score: {self.score}",self.screen,font_color=(255, 255, 255),pos_x_center=900,pos_y_center=50)
 
     def draw_power_up_time(self):
             if self.player.has_power_up:
@@ -96,11 +112,12 @@ class Game:
                     set_print_text(
                         f"{self.player.type.capitalize()} enabled for {time_to_show} seconds",
                         self.screen,
-                        font_size=18,
-                        pos_x_center=500,
-                        pos_y_center=40
+                        font_color=(255, 255, 255),
+                        font_size=22,
+                        pos_x_center=180,
+                        pos_y_center=50
                     )
-                else:
+                else :
                     self.player.has_power_up = False
                     self.player.type = DEFAULT_TYPE
 
