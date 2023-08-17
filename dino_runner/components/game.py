@@ -1,6 +1,6 @@
 import pygame
 
-from dino_runner.utils.constants import BG, ICON, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS, DEFAULT_TYPE, BIG_BG, MP3, PARALAX1,PARALAX2
+from dino_runner.utils.constants import BG, ICON, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE,DINO_START, FPS, DEFAULT_TYPE, BIG_BG, MP3, PARALAX1,PARALAX2, SOUND_START
 from dino_runner.components.dinosaur import Dinosaur
 from dino_runner.components.obstacles.obstacle_manager import ObstacleManager
 from dino_runner.components.power_ups.power_up_manager import PowerUpManager
@@ -34,6 +34,7 @@ class Game:
             if not self.playing:
                 self.show_menu()
                 pygame.mixer.music.play(-1)
+        SOUND_START.play()
         pygame.display.quit()
         pygame.quit()
 
@@ -42,6 +43,8 @@ class Game:
         self.playing = True
         self.score = 0
         self.game_speed = 20
+        self.player.type = 'default'
+        self.player.has_power_up = False
         self.obstacle_manager.reset_obstacles()
         self.power_up_manager.reset_power_ups()
 
@@ -128,11 +131,12 @@ class Game:
 
         if self.death_count == 0:  # Tela de inicio
             set_print_text("Press any key to start",self.screen,)
+            self.screen.blit(DINO_START, (half_screen_width - 65, half_screen_height - 140))
         else:  # Tela de restart
             set_print_text("Press any key to restart", self.screen, pos_x_center= half_screen_width + 20, pos_y_center=half_screen_height - 20)
             set_print_text(f"High score: {self.high_score -1} | Score: {self.score -1}", self.screen, pos_x_center= 570, pos_y_center=half_screen_height + 40)
             set_print_text(f"Deaths: {self.death_count}",self.screen, pos_x_center= 570, pos_y_center=half_screen_height + 60)
-            self.screen.blit(ICON, (half_screen_width - 20, half_screen_height - 140))
+            self.screen.blit(ICON, (half_screen_width - 50, half_screen_height - 160))
 
         pygame.display.update()
         self.handle_events_on_menu()
@@ -143,4 +147,5 @@ class Game:
                 self.playing = False
                 self.running = False
             elif event.type == pygame.KEYDOWN:
+                SOUND_START.play()
                 self.run()

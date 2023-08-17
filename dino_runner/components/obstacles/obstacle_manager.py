@@ -1,7 +1,7 @@
 import pygame
 from dino_runner.components.obstacles.bird import Bird
 from dino_runner.components.obstacles.cactus import Cactus
-from dino_runner.utils.constants import LIXOS, BIRD
+from dino_runner.utils.constants import LIXOS, BIRD,SOUND_CLS, SOUND_DIE
 import random
 pygame.init()
 
@@ -24,9 +24,20 @@ class ObstacleManager:
                     pygame.time.delay(500)
                     game.playing = False
                     game.death_count += 1
+                    SOUND_DIE.play()
                     break
-                else:
+                elif isinstance(obstacle, Cactus) and game.player.type == 'shield':
                     self.obstacles.remove(obstacle)
+                    SOUND_CLS.play()
+                elif isinstance(obstacle, Bird) and game.player.type == 'hat':
+                    self.obstacles.remove(obstacle)
+                    SOUND_CLS.play()
+                else:
+                    pygame.time.delay(500)
+                    game.playing = False
+                    game.death_count += 1
+                    SOUND_DIE.play()
+                    break
 
     def draw(self, screen):
         for obstacle in self.obstacles:

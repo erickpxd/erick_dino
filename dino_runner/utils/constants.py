@@ -9,10 +9,11 @@ FPS = 30
 IMG_DIR = os.path.join(os.path.dirname(__file__), "..", "assets")
 
 # Assets Constants
-ICON = pygame.image.load(os.path.join(IMG_DIR, "imagens/START.png"))
-
+ICON = pygame.image.load(os.path.join(IMG_DIR, "imagens/DIE.png"))
+ICON = pygame.transform.scale(ICON, (140, 130))
 # Dino
 DINO_START = pygame.image.load(os.path.join(IMG_DIR, "imagens/START.png"))
+DINO_START = pygame.transform.scale(DINO_START, (140, 130))
 DINO_DEAD = pygame.image.load(os.path.join(IMG_DIR, "imagens/DIE.png"))
 
 # Run
@@ -89,8 +90,9 @@ BIRD.append(bird2)
 
 # Power ups
 escudo = pygame.image.load(os.path.join(IMG_DIR, "imagens/eco.png"))
-SHIELD = pygame.transform.scale(escudo, (80, 80))
-HAT = pygame.image.load(os.path.join(IMG_DIR, "imagens/BIT.png"))
+SHIELD = pygame.transform.scale(escudo, (120, 120))
+hat = pygame.image.load(os.path.join(IMG_DIR, "imagens/BIT.png"))
+HAT = pygame.transform.scale(hat, (120, 120))
 
 BG = pygame.image.load(os.path.join(IMG_DIR, "imagens/Track.png"))
 BIG_BG = pygame.image.load(os.path.join(IMG_DIR, "imagens/bg1.png"))
@@ -100,8 +102,21 @@ PARALAX1 = pygame.transform.scale(PARALAX1, (SCREEN_WIDTH,SCREEN_HEIGHT))
 PARALAX2 = pygame.image.load(os.path.join(IMG_DIR, "imagens/paralax_final.png"))
 PARALAX2 = pygame.transform.scale(PARALAX2, (SCREEN_WIDTH,SCREEN_HEIGHT))
 
-pygame.mixer.music.set_volume(0.15)
+
+
 MP3 = pygame.mixer.music.load(os.path.join(IMG_DIR,"Other/praieira.mp3"))
+SOUND_CLS = pygame.mixer.Sound(os.path.join(IMG_DIR,"Other/CLS.wav"))
+SOUND_JUMP = pygame.mixer.Sound(os.path.join(IMG_DIR,"Other/JUMP.wav"))
+SOUND_DIE = pygame.mixer.Sound(os.path.join(IMG_DIR,"Other/DIE.wav"))
+SOUND_POWER_UP = pygame.mixer.Sound(os.path.join(IMG_DIR,"Other/POWER_UP.wav"))
+SOUND_START = pygame.mixer.Sound(os.path.join(IMG_DIR,"Other/START.wav"))
+
+pygame.mixer.music.set_volume(0.2)
+SOUND_CLS.set_volume(0.3)
+SOUND_JUMP.set_volume(0.3)
+SOUND_DIE.set_volume(0.3)
+SOUND_POWER_UP.set_volume(0.3)
+SOUND_START.set_volume(0.3)
 
 DEFAULT_TYPE = "default"
 SHIELD_TYPE = "shield"

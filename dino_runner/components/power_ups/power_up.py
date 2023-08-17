@@ -9,7 +9,7 @@ class PowerUp(Sprite):
         self.type = _type
         self.rect = self.image.get_rect()
         self.rect.x = SCREEN_WIDTH + random.randint(800, 1000)
-        self.rect.y = random.randint(300, 350)
+        self.rect.y = random.randint(280, 320)
         self.start_time = 0
         self.duration = random.randint(5, 10)
 

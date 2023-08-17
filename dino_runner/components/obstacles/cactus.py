@@ -9,6 +9,6 @@ class Cactus(Obstacle):
         if self.type == 0:
             self.rect.y = 476
         elif self.type == 2:
-            self.rect.y = 510986
+            self.rect.y = 510
         else:
             self.rect.y = 465

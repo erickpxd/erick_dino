@@ -12,6 +12,7 @@ from dino_runner.utils.constants import (
     DEFAULT_TYPE,
     SHIELD_TYPE,
     HAT_TYPE,
+    SOUND_JUMP
 
 )
 from pygame.sprite import Sprite
@@ -70,6 +71,7 @@ class Dinosaur(Sprite):
             self.duck()
 
         if user_input[pygame.K_UP] and not self.dino_jump:
+            SOUND_JUMP.play()
             self.dino_jump = True
             self.dino_run = False
             self.dino_duck = False
@@ -105,15 +107,17 @@ class Dinosaur(Sprite):
             self.dino_rect.y = Y_POS
             self.dino_jump = False
             self.jump_vel = JUMP_VEL
+        
 
     def duck(self):
-        self.image = DUCK_IMG[self.type][self.step_index // 5]
-        self.image = pygame.transform.scale(self.image,(60,40))
-        self.dino_rect = self.image.get_rect()
-        self.dino_rect.x = X_POS +13
-        self.dino_rect.y = Y_POS + 44
-        self.step_index += 1
-        self.dino_duck = False
+        if not self.type == 'hat':
+            self.image = DUCK_IMG[self.type][self.step_index // 5]
+            self.image = pygame.transform.scale(self.image,(60,40))
+            self.dino_rect = self.image.get_rect()
+            self.dino_rect.x = X_POS +13
+            self.dino_rect.y = Y_POS + 44
+            self.step_index += 1
+            self.dino_duck = False
 
     def draw(self, screen):
         screen.blit(self.image, (self.dino_rect.x, self.dino_rect.y))
